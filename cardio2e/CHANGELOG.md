@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11
+
+- Fix syslog: replace SysLogHandler with custom UDP handler that matches working format
+
 ## 1.0.10
 
 - Fix syslog: remove NUL byte (append_nul=False) and use ident for RFC 3164 compatibility

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.10
+
+- Fix syslog: remove NUL byte (append_nul=False) and use ident for RFC 3164 compatibility
+
+## 1.0.9
+
+- Debug: add raw UDP test message at syslog startup to diagnose connectivity
+- Simplify syslog message format for better compatibility
+
 ## 1.0.8
 
 - Fix Docker cache: use BUILD_VERSION arg to bust cache on version bumps

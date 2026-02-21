@@ -35,6 +35,9 @@ FETCH_ZONE_NAMES=$(jq -r '.fetch_zone_names' ${OPTIONS})
 ZONES_NORMAL_AS_OFF=$(jq -r '.zones_normal_as_off // ""' ${OPTIONS})
 [[ -z "${ZONES_NORMAL_AS_OFF}" ]] && ZONES_NORMAL_AS_OFF="[]"
 
+SYSLOG_ADDRESS=$(jq -r '.syslog_address // ""' ${OPTIONS})
+SYSLOG_PORT=$(jq -r '.syslog_port' ${OPTIONS})
+
 MQTT_HOST=$(jq -r '.mqtt_address' ${OPTIONS})
 MQTT_PORT=$(jq -r '.mqtt_port' ${OPTIONS})
 MQTT_USER=$(jq -r '.mqtt_username' ${OPTIONS})
@@ -56,6 +59,8 @@ cat > /app/cardio2e.conf << EOF
 [global]
 debug = ${debug_val}
 ha_discover_prefix = ${HA_DISCOVER_PREFIX}
+syslog_address = ${SYSLOG_ADDRESS}
+syslog_port = ${SYSLOG_PORT}
 
 [cardio2e]
 serial_port = ${SERIAL_PORT}

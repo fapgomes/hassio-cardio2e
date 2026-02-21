@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/with-contenv bash
 
 # =============================================================================
 # Cardio2e Add-on entrypoint

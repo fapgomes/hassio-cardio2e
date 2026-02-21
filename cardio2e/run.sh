@@ -1,53 +1,61 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/env bash
 
 # =============================================================================
 # Cardio2e Add-on entrypoint
-# Reads options from HA Supervisor, auto-detects MQTT, generates cardio2e.conf
+# Reads options from /data/options.json, auto-detects MQTT, generates .conf
 # =============================================================================
 
-# Read add-on options
-SERIAL_PORT=$(bashio::config 'serial_port')
-BAUDRATE=$(bashio::config 'baudrate')
-PASSWORD=$(bashio::config 'password')
-DEBUG=$(bashio::config 'debug')
-UPDATE_DATE_INTERVAL=$(bashio::config 'update_date_interval')
-HA_DISCOVER_PREFIX=$(bashio::config 'ha_discover_prefix')
+OPTIONS="/data/options.json"
 
-FETCH_LIGHT_NAMES=$(bashio::config 'fetch_light_names')
-DIMMER_LIGHTS=$(bashio::config 'dimmer_lights')
+# Read add-on options
+SERIAL_PORT=$(jq -r '.serial_port' ${OPTIONS})
+BAUDRATE=$(jq -r '.baudrate' ${OPTIONS})
+PASSWORD=$(jq -r '.password' ${OPTIONS})
+DEBUG=$(jq -r '.debug' ${OPTIONS})
+UPDATE_DATE_INTERVAL=$(jq -r '.update_date_interval' ${OPTIONS})
+HA_DISCOVER_PREFIX=$(jq -r '.ha_discover_prefix' ${OPTIONS})
+
+FETCH_LIGHT_NAMES=$(jq -r '.fetch_light_names' ${OPTIONS})
+DIMMER_LIGHTS=$(jq -r '.dimmer_lights // ""' ${OPTIONS})
 [[ -z "${DIMMER_LIGHTS}" ]] && DIMMER_LIGHTS="[]"
-FORCE_INCLUDE_LIGHTS=$(bashio::config 'force_include_lights')
+FORCE_INCLUDE_LIGHTS=$(jq -r '.force_include_lights // ""' ${OPTIONS})
 [[ -z "${FORCE_INCLUDE_LIGHTS}" ]] && FORCE_INCLUDE_LIGHTS="[]"
 
-FETCH_SWITCH_NAMES=$(bashio::config 'fetch_switch_names')
+FETCH_SWITCH_NAMES=$(jq -r '.fetch_switch_names' ${OPTIONS})
 
-FETCH_COVER_NAMES=$(bashio::config 'fetch_cover_names')
-SKIP_INIT_COVER_STATE=$(bashio::config 'skip_init_cover_state')
-NCOVERS=$(bashio::config 'ncovers')
+FETCH_COVER_NAMES=$(jq -r '.fetch_cover_names' ${OPTIONS})
+SKIP_INIT_COVER_STATE=$(jq -r '.skip_init_cover_state' ${OPTIONS})
+NCOVERS=$(jq -r '.ncovers' ${OPTIONS})
 
-FETCH_NAMES_HVAC=$(bashio::config 'fetch_names_hvac')
+FETCH_NAMES_HVAC=$(jq -r '.fetch_names_hvac' ${OPTIONS})
 
-ALARM_CODE=$(bashio::config 'alarm_code')
+ALARM_CODE=$(jq -r '.alarm_code' ${OPTIONS})
 
-FETCH_ZONE_NAMES=$(bashio::config 'fetch_zone_names')
-ZONES_NORMAL_AS_OFF=$(bashio::config 'zones_normal_as_off')
+FETCH_ZONE_NAMES=$(jq -r '.fetch_zone_names' ${OPTIONS})
+ZONES_NORMAL_AS_OFF=$(jq -r '.zones_normal_as_off // ""' ${OPTIONS})
 [[ -z "${ZONES_NORMAL_AS_OFF}" ]] && ZONES_NORMAL_AS_OFF="[]"
 
-# Auto-detect MQTT from HA services
-if bashio::services.available "mqtt"; then
-    MQTT_HOST=$(bashio::services mqtt "host")
-    MQTT_PORT=$(bashio::services mqtt "port")
-    MQTT_USER=$(bashio::services mqtt "username")
-    MQTT_PASS=$(bashio::services mqtt "password")
-    bashio::log.info "MQTT auto-detected: ${MQTT_HOST}:${MQTT_PORT}"
+# Auto-detect MQTT from Supervisor API
+if MQTT_CONFIG=$(curl -s -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" http://supervisor/services/mqtt); then
+    MQTT_HOST=$(echo "${MQTT_CONFIG}" | jq -r '.data.host')
+    MQTT_PORT=$(echo "${MQTT_CONFIG}" | jq -r '.data.port')
+    MQTT_USER=$(echo "${MQTT_CONFIG}" | jq -r '.data.username')
+    MQTT_PASS=$(echo "${MQTT_CONFIG}" | jq -r '.data.password')
+
+    if [[ "${MQTT_HOST}" == "null" || -z "${MQTT_HOST}" ]]; then
+        echo "[ERROR] MQTT service not available. Please install the Mosquitto add-on or configure an MQTT broker in Home Assistant."
+        exit 1
+    fi
+
+    echo "[INFO] MQTT auto-detected: ${MQTT_HOST}:${MQTT_PORT}"
 else
-    bashio::log.fatal "MQTT service not available. Please install the Mosquitto add-on or configure an MQTT broker in Home Assistant."
+    echo "[ERROR] Failed to query Supervisor MQTT service."
     exit 1
 fi
 
 # Convert booleans to config format
 debug_val=0
-if bashio::var.true "${DEBUG}"; then
+if [[ "${DEBUG}" == "true" ]]; then
     debug_val=1
 fi
 
@@ -81,8 +89,8 @@ username = ${MQTT_USER}
 password = ${MQTT_PASS}
 EOF
 
-bashio::log.info "Configuration generated at /app/cardio2e.conf"
-bashio::log.info "Starting Cardio2e bridge..."
+echo "[INFO] Configuration generated at /app/cardio2e.conf"
+echo "[INFO] Starting Cardio2e bridge..."
 
 cd /app
 exec python3 /app/cardio2e.py

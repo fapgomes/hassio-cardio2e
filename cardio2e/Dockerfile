@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-RUN apk add --no-cache git \
+RUN apk add --no-cache git jq \
     && pip3 install --no-cache-dir pyserial paho-mqtt \
     && git clone https://github.com/fapgomes/cardio2e.git /app \
     && apk del git

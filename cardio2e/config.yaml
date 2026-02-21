@@ -1,6 +1,6 @@
 name: Cardio2e
 description: Bridge between Secant Cardio2e home automation (RS-232) and Home Assistant via MQTT
-version: "1.0.2"
+version: "1.0.3"
 slug: cardio2e
 url: https://github.com/fapgomes/hassio-cardio2e
 arch:
@@ -9,6 +9,7 @@ arch:
   - armv7
 startup: application
 boot: auto
+init: false
 uart: true
 hassio_api: true
 options:

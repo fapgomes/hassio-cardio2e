@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.13
+
+- Pull cardio2e v2.0.1:
+  - Show entity friendly names in log messages (e.g. `Light Sala (id: 7) state updated to: OFF`)
+  - Add version number and log it on startup
+  - Fix HVAC mode translation and app_state sync
+  - Replace ast.literal_eval with json.loads for config parsing
+
 ## 1.0.12
 
 - Fix syslog: use same priority as working UDP test

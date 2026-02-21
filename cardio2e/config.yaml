@@ -19,8 +19,8 @@ options:
   update_date_interval: 3600
   ha_discover_prefix: homeassistant
   fetch_light_names: true
-  dimmer_lights: []
-  force_include_lights: []
+  dimmer_lights: ""
+  force_include_lights: ""
   fetch_switch_names: true
   fetch_cover_names: true
   skip_init_cover_state: false
@@ -28,7 +28,7 @@ options:
   fetch_names_hvac: true
   alarm_code: 12345
   fetch_zone_names: true
-  zones_normal_as_off: []
+  zones_normal_as_off: ""
 schema:
   serial_port: str
   baudrate: int
@@ -37,10 +37,8 @@ schema:
   update_date_interval: int
   ha_discover_prefix: str
   fetch_light_names: bool
-  dimmer_lights:
-    - int
-  force_include_lights:
-    - int
+  dimmer_lights: "str?"
+  force_include_lights: "str?"
   fetch_switch_names: bool
   fetch_cover_names: bool
   skip_init_cover_state: bool
@@ -48,5 +46,4 @@ schema:
   fetch_names_hvac: bool
   alarm_code: int
   fetch_zone_names: bool
-  zones_normal_as_off:
-    - int
+  zones_normal_as_off: "str?"

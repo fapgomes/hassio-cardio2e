@@ -15,7 +15,9 @@ HA_DISCOVER_PREFIX=$(bashio::config 'ha_discover_prefix')
 
 FETCH_LIGHT_NAMES=$(bashio::config 'fetch_light_names')
 DIMMER_LIGHTS=$(bashio::config 'dimmer_lights')
+[[ -z "${DIMMER_LIGHTS}" ]] && DIMMER_LIGHTS="[]"
 FORCE_INCLUDE_LIGHTS=$(bashio::config 'force_include_lights')
+[[ -z "${FORCE_INCLUDE_LIGHTS}" ]] && FORCE_INCLUDE_LIGHTS="[]"
 
 FETCH_SWITCH_NAMES=$(bashio::config 'fetch_switch_names')
 
@@ -29,6 +31,7 @@ ALARM_CODE=$(bashio::config 'alarm_code')
 
 FETCH_ZONE_NAMES=$(bashio::config 'fetch_zone_names')
 ZONES_NORMAL_AS_OFF=$(bashio::config 'zones_normal_as_off')
+[[ -z "${ZONES_NORMAL_AS_OFF}" ]] && ZONES_NORMAL_AS_OFF="[]"
 
 # Auto-detect MQTT from HA services
 if bashio::services.available "mqtt"; then

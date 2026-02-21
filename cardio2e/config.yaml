@@ -1,6 +1,6 @@
 name: Cardio2e
 description: Bridge between Secant Cardio2e home automation (RS-232) and Home Assistant via MQTT
-version: "1.0.4"
+version: "1.0.5"
 slug: cardio2e
 url: https://github.com/fapgomes/hassio-cardio2e
 arch:
@@ -11,7 +11,6 @@ startup: application
 boot: auto
 init: false
 uart: true
-hassio_api: true
 options:
   serial_port: /dev/ttyUSB0
   baudrate: 9600
@@ -30,6 +29,10 @@ options:
   alarm_code: 12345
   fetch_zone_names: true
   zones_normal_as_off: ""
+  mqtt_address: ""
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
 schema:
   serial_port: str
   baudrate: int
@@ -48,3 +51,7 @@ schema:
   alarm_code: int
   fetch_zone_names: bool
   zones_normal_as_off: "str?"
+  mqtt_address: str
+  mqtt_port: int
+  mqtt_username: str
+  mqtt_password: str

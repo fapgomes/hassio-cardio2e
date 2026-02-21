@@ -2,7 +2,7 @@
 
 # =============================================================================
 # Cardio2e Add-on entrypoint
-# Reads options from /data/options.json, auto-detects MQTT, generates .conf
+# Reads options from /data/options.json, generates cardio2e.conf
 # =============================================================================
 
 OPTIONS="/data/options.json"
@@ -35,21 +35,13 @@ FETCH_ZONE_NAMES=$(jq -r '.fetch_zone_names' ${OPTIONS})
 ZONES_NORMAL_AS_OFF=$(jq -r '.zones_normal_as_off // ""' ${OPTIONS})
 [[ -z "${ZONES_NORMAL_AS_OFF}" ]] && ZONES_NORMAL_AS_OFF="[]"
 
-# Auto-detect MQTT from Supervisor API
-if MQTT_CONFIG=$(curl -s -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" http://supervisor/services/mqtt); then
-    MQTT_HOST=$(echo "${MQTT_CONFIG}" | jq -r '.data.host')
-    MQTT_PORT=$(echo "${MQTT_CONFIG}" | jq -r '.data.port')
-    MQTT_USER=$(echo "${MQTT_CONFIG}" | jq -r '.data.username')
-    MQTT_PASS=$(echo "${MQTT_CONFIG}" | jq -r '.data.password')
+MQTT_HOST=$(jq -r '.mqtt_address' ${OPTIONS})
+MQTT_PORT=$(jq -r '.mqtt_port' ${OPTIONS})
+MQTT_USER=$(jq -r '.mqtt_username' ${OPTIONS})
+MQTT_PASS=$(jq -r '.mqtt_password' ${OPTIONS})
 
-    if [[ "${MQTT_HOST}" == "null" || -z "${MQTT_HOST}" ]]; then
-        echo "[ERROR] MQTT service not available. Please install the Mosquitto add-on or configure an MQTT broker in Home Assistant."
-        exit 1
-    fi
-
-    echo "[INFO] MQTT auto-detected: ${MQTT_HOST}:${MQTT_PORT}"
-else
-    echo "[ERROR] Failed to query Supervisor MQTT service."
+if [[ -z "${MQTT_HOST}" ]]; then
+    echo "[ERROR] MQTT address is not configured. Please set it in the add-on configuration."
     exit 1
 fi
 
@@ -90,6 +82,7 @@ password = ${MQTT_PASS}
 EOF
 
 echo "[INFO] Configuration generated at /app/cardio2e.conf"
+echo "[INFO] MQTT broker: ${MQTT_HOST}:${MQTT_PORT}"
 echo "[INFO] Starting Cardio2e bridge..."
 
 cd /app

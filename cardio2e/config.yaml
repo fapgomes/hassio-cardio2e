@@ -1,0 +1,52 @@
+name: Cardio2e
+description: Bridge between Secant Cardio2e home automation (RS-232) and Home Assistant via MQTT
+version: "1.0.0"
+slug: cardio2e
+url: https://github.com/fapgomes/hassio-cardio2e
+arch:
+  - amd64
+  - aarch64
+  - armv7
+startup: application
+boot: auto
+uart: true
+hassio_api: true
+options:
+  serial_port: /dev/ttyUSB0
+  baudrate: 9600
+  password: "00000"
+  debug: false
+  update_date_interval: 3600
+  ha_discover_prefix: homeassistant
+  fetch_light_names: true
+  dimmer_lights: []
+  force_include_lights: []
+  fetch_switch_names: true
+  fetch_cover_names: true
+  skip_init_cover_state: false
+  ncovers: 20
+  fetch_names_hvac: true
+  alarm_code: 12345
+  fetch_zone_names: true
+  zones_normal_as_off: []
+schema:
+  serial_port: str
+  baudrate: int
+  password: str
+  debug: bool
+  update_date_interval: int
+  ha_discover_prefix: str
+  fetch_light_names: bool
+  dimmer_lights:
+    - int
+  force_include_lights:
+    - int
+  fetch_switch_names: bool
+  fetch_cover_names: bool
+  skip_init_cover_state: bool
+  ncovers: int
+  fetch_names_hvac: bool
+  alarm_code: int
+  fetch_zone_names: bool
+  zones_normal_as_off:
+    - int

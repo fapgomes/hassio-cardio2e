@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.12
+
+- Fix syslog: use same priority as working UDP test
+
 ## 1.0.11
 
 - Fix syslog: replace SysLogHandler with custom UDP handler that matches working format

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.14
+
+- Mask alarm code and MQTT password in add-on UI (password fields)
+- Pull cardio2e v2.0.3:
+  - Treat alarm code as string instead of int to preserve leading zeros
+
 ## 1.0.13
 
 - Pull cardio2e v2.0.1:

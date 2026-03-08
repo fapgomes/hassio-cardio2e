@@ -29,6 +29,7 @@ After installing, go to the add-on **Configuration** tab. All options are availa
 | `password` | `00000` | Cardio2e device password |
 | `debug` | `false` | Enable debug logging |
 | `update_date_interval` | `3600` | Seconds between date/time sync to Cardio2e |
+| `sync_interval` | `43200` | Seconds between full entity sync (0 to disable) |
 | `ha_discover_prefix` | `homeassistant` | MQTT prefix for Home Assistant autodiscovery |
 | `fetch_light_names` | `true` | Fetch light names from the controller on startup |
 | `dimmer_lights` | `[]` | List of light IDs with dimmer/brightness support |

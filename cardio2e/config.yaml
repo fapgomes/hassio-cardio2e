@@ -1,6 +1,6 @@
 name: Cardio2e
 description: Bridge between Secant Cardio2e home automation (RS-232) and Home Assistant via MQTT
-version: "1.0.14"
+version: "1.0.15"
 slug: cardio2e
 url: https://github.com/fapgomes/hassio-cardio2e
 arch:
@@ -17,6 +17,7 @@ options:
   password: "00000"
   debug: false
   update_date_interval: 3600
+  sync_interval: 43200
   ha_discover_prefix: homeassistant
   fetch_light_names: true
   dimmer_lights: ""
@@ -41,6 +42,7 @@ schema:
   password: str
   debug: bool
   update_date_interval: int
+  sync_interval: int
   ha_discover_prefix: str
   fetch_light_names: bool
   dimmer_lights: "str?"

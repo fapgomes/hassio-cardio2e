@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.15
+
+- Add `sync_interval` option to UI (periodic entity sync, default 12h, 0 to disable)
+- Pull cardio2e v2.0.5:
+  - Periodic re-query of all known entities to keep HA in sync with Cardio2e hardware
+
 ## 1.0.14
 
 - Mask alarm code and MQTT password in add-on UI (password fields)

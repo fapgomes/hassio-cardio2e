@@ -13,6 +13,7 @@ BAUDRATE=$(jq -r '.baudrate' ${OPTIONS})
 PASSWORD=$(jq -r '.password' ${OPTIONS})
 DEBUG=$(jq -r '.debug' ${OPTIONS})
 UPDATE_DATE_INTERVAL=$(jq -r '.update_date_interval' ${OPTIONS})
+SYNC_INTERVAL=$(jq -r '.sync_interval' ${OPTIONS})
 HA_DISCOVER_PREFIX=$(jq -r '.ha_discover_prefix' ${OPTIONS})
 
 FETCH_LIGHT_NAMES=$(jq -r '.fetch_light_names' ${OPTIONS})
@@ -67,6 +68,7 @@ serial_port = ${SERIAL_PORT}
 baudrate = ${BAUDRATE}
 password = ${PASSWORD}
 update_date_interval = ${UPDATE_DATE_INTERVAL}
+sync_interval = ${SYNC_INTERVAL}
 fetch_light_names = ${FETCH_LIGHT_NAMES}
 dimmer_lights = ${DIMMER_LIGHTS}
 force_include_lights = ${FORCE_INCLUDE_LIGHTS}

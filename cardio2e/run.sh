@@ -36,6 +36,9 @@ FETCH_ZONE_NAMES=$(jq -r '.fetch_zone_names' ${OPTIONS})
 ZONES_NORMAL_AS_OFF=$(jq -r '.zones_normal_as_off // ""' ${OPTIONS})
 [[ -z "${ZONES_NORMAL_AS_OFF}" ]] && ZONES_NORMAL_AS_OFF="[]"
 
+NSCENARIOS=$(jq -r '.nscenarios' ${OPTIONS})
+FETCH_SCENARIO_NAMES=$(jq -r '.fetch_scenario_names' ${OPTIONS})
+
 SYSLOG_ADDRESS=$(jq -r '.syslog_address // ""' ${OPTIONS})
 SYSLOG_PORT=$(jq -r '.syslog_port' ${OPTIONS})
 
@@ -80,6 +83,8 @@ fetch_names_hvac = ${FETCH_NAMES_HVAC}
 code = ${ALARM_CODE}
 fetch_zone_names = ${FETCH_ZONE_NAMES}
 zones_normal_as_off = ${ZONES_NORMAL_AS_OFF}
+nscenarios = ${NSCENARIOS}
+fetch_scenario_names = ${FETCH_SCENARIO_NAMES}
 
 [mqtt]
 address = ${MQTT_HOST}

@@ -42,6 +42,8 @@ After installing, go to the add-on **Configuration** tab. All options are availa
 | `alarm_code` | `12345` | Security code for arming/disarming the alarm |
 | `fetch_zone_names` | `true` | Fetch zone names from the controller on startup |
 | `zones_normal_as_off` | `[]` | Zone IDs where "Normal" state means OFF |
+| `nscenarios` | `0` | Total number of scenarios to initialize (0 = disabled) |
+| `fetch_scenario_names` | `true` | Fetch scenario names from the controller on startup |
 
 ## Supported entities
 
@@ -51,6 +53,7 @@ After installing, go to the add-on **Configuration** tab. All options are availa
 - **HVAC** — Heating/cooling setpoints, fan control, system mode
 - **Security** — Arm/disarm alarm
 - **Zones** — Motion sensors with bypass control
+- **Scenarios** — Fire-and-forget macros (scenes)
 
 All entities are automatically discovered by Home Assistant via MQTT autodiscovery.
 

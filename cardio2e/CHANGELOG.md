@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.16
+
+- Add `nscenarios` and `fetch_scenario_names` options (scenario/macro support)
+- Pull cardio2e v2.0.6:
+  - Scenario (macro) support — fire-and-forget scenes via Cardio2e protocol
+  - Scenarios appear as `scene` entities in Home Assistant via MQTT autodiscovery
+
 ## 1.0.15
 
 - Add `sync_interval` option to UI (periodic entity sync, default 12h, 0 to disable)

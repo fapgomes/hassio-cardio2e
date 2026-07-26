@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.17
+
+- Add add-on store artwork: `icon.png` (128x128) and `logo.png` (250x100)
+
 ## 1.0.16
 
 - Add `nscenarios` and `fetch_scenario_names` options (scenario/macro support)

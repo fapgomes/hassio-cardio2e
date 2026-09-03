@@ -64,3 +64,9 @@ The add-on auto-detects the MQTT broker from Home Assistant (Mosquitto add-on). 
 ## How it works
 
 This add-on packages the [cardio2e](https://github.com/fapgomes/cardio2e) bridge. At build time, the code is cloned from the original repository. At runtime, the add-on reads configuration from the HA UI, generates the config file, and launches the bridge.
+
+## Support the project
+
+If this project is useful to you, consider buying me a coffee to help keep it going:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-fapgomes-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/fapgomes)

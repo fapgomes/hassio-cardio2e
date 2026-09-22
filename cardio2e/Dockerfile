@@ -1,9 +1,9 @@
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
+ARG BUILD_ARCH
+FROM ghcr.io/home-assistant/${BUILD_ARCH}-base-python:3.12-alpine3.20
 
-# cardio2e release tag to ship; pinned in build.yaml and bumped by the
-# bump-addon workflow of github.com/fapgomes/cardio2e on every release.
-ARG CARDIO2E_VERSION
+# cardio2e release tag to ship; bumped by the bump-addon workflow of
+# github.com/fapgomes/cardio2e on every release.
+ARG CARDIO2E_VERSION="v2.4.2"
 
 RUN apk add --no-cache jq \
     && pip3 install --no-cache-dir pyserial paho-mqtt

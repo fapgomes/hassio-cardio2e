@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.18
+
+- Pin the cardio2e release tag at build time (`CARDIO2E_VERSION` in `build.yaml`); bumped automatically by the cardio2e release workflow
+- Pull cardio2e v2.4.2:
+  - Fixes:
+    - Re-send HVAC commands that get no `@A` ack, as lights and relays since v2.4.1. Seen in production: `@S H 1 5.0 7.0 S O` reached the controller garbled as `@S H 1 5.0 C7.C0C S` (zone frame spliced into it), was answered by `@N H 1 3` and never applied, while the bridge had already published the new mode to MQTT; Home Assistant showed `off` and the zone stayed in `cool` until the 12h re-sync. The controller acks HVAC with `@A H <id>` like the others, so an unacked HVAC command is now re-sent once, the `@A H` ack clears the retry and queues the post-ack `@I` verification, and `@I H` updates are stamped so that verification sees them.
+    - Re-query the state of a light, relay or HVAC zone whose command was rejected with `@N <type> <id> <code>`. The re-query is due after the retry window (1s ack timeout + 2s `@I` grace): if the re-sent command was acked and followed by its `@I`, nothing is queried; otherwise the controller's real state is published, undoing the optimistic value. Covers are never re-queried (`@G C` drives the motor) and a truncated `@N <type> <code>` (id lost to garbling, e.g. `@N L 2`) identifies nothing and is only reported.
+  - Other:
+    - Unparseable fragments of frames garbled on the wire (`@CCCC`, `@O`, ...) are logged as WARNING instead of ERROR: they are expected controller noise, not a bridge failure. `@N` errors are still reported to the error sensor and counted in the diagnostics.
+
 ## 1.0.17
 
 - Add add-on store artwork: `icon.png` (128x128) and `logo.png` (250x100)

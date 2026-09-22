@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.19
+
+- Drop the deprecated `build.yaml`: the base image (via `BUILD_ARCH`) and the pinned cardio2e tag (`ARG CARDIO2E_VERSION`) are now defined in the `Dockerfile`
+
 ## 1.0.18
 
 - Pin the cardio2e release tag at build time (`CARDIO2E_VERSION` in `build.yaml`); bumped automatically by the cardio2e release workflow

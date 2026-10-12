@@ -45,6 +45,27 @@ After installing, go to the add-on **Configuration** tab. All options are availa
 | `nscenarios` | `0` | Total number of scenarios to initialize (0 = disabled) |
 | `fetch_scenario_names` | `true` | Fetch scenario names from the controller on startup |
 
+## Configuration memory panel
+
+The add-on adds a **Cardio2e** panel to the Home Assistant sidebar (ingress) to
+back up the controller's configuration memory, download the backups, upload a
+memory image and restore it:
+
+- **Back up now** reads the whole memory (about 15 minutes).
+- **Compare & restore…** (or **Upload, compare & restore…** for a file from
+  your computer) reads the controller (about 5 minutes) and lists the
+  differences per field. Nothing is written until you press **Apply**; only the
+  changed bytes are written and read back. User/installer codes, emergency
+  phones and the monitoring station are never restored.
+- The values overwritten by a restore are saved first as a
+  `before-restore-<date>.bin` backup.
+
+Backups are stored in the add-on configuration folder,
+`/addon_configs/<repository>_cardio2e/backups` (included in Home Assistant
+backups). While a backup or compare is running, lights and switches still
+work, but a command takes about 12 seconds: the controller stops its timers
+(such as a relay's auto off) while it serves memory requests.
+
 ## Supported entities
 
 - **Lights** — ON/OFF and brightness (for dimmer lights)

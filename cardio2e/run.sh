@@ -86,6 +86,11 @@ zones_normal_as_off = ${ZONES_NORMAL_AS_OFF}
 nscenarios = ${NSCENARIOS}
 fetch_scenario_names = ${FETCH_SCENARIO_NAMES}
 
+[web]
+port = 8099
+allowed_clients = 172.30.32.2
+backup_dir = /config/backups
+
 [mqtt]
 address = ${MQTT_HOST}
 port = ${MQTT_PORT}

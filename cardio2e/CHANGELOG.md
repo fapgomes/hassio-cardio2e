@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Minor version for the new configuration memory panel shipped in 1.0.20 (no other changes): a **Cardio2e** panel in the Home Assistant sidebar (ingress) to back up, download, upload, compare and restore the controller's configuration memory; backups are stored in the add-on configuration folder (`/addon_configs/<repository>_cardio2e/backups`) and included in Home Assistant backups
+
 ## 1.0.20
 
 - Pull cardio2e v2.5.0:

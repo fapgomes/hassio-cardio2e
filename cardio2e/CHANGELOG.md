@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Minor version for the outlet and lamp settings shipped in 1.1.1 (no other changes): with the new `config_entities` option (default `true`), every switch and light gets config entities for its settings in the controller (name, auto off, duration, reactions, pulse zone, active period) under the **Cardio2e Switches** and **Cardio2e Lights** devices; only *Auto off* and *Duration* are enabled by default
+
 ## 1.1.1
 
 - Pull cardio2e v2.6.0:

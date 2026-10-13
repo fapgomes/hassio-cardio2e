@@ -39,6 +39,7 @@ options:
   zones_normal_as_off: ""
   nscenarios: 0
   fetch_scenario_names: true
+  config_entities: true
   syslog_address: ""
   syslog_port: 514
   mqtt_address: ""
@@ -66,6 +67,7 @@ schema:
   zones_normal_as_off: "str?"
   nscenarios: int
   fetch_scenario_names: bool
+  config_entities: bool?
   syslog_address: "str?"
   syslog_port: int
   mqtt_address: str

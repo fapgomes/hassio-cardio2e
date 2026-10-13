@@ -38,6 +38,8 @@ ZONES_NORMAL_AS_OFF=$(jq -r '.zones_normal_as_off // ""' ${OPTIONS})
 
 NSCENARIOS=$(jq -r '.nscenarios' ${OPTIONS})
 FETCH_SCENARIO_NAMES=$(jq -r '.fetch_scenario_names' ${OPTIONS})
+# Optional: missing in configurations saved before this option means true
+CONFIG_ENTITIES=$(jq -r 'if .config_entities == null then true else .config_entities end' ${OPTIONS})
 
 SYSLOG_ADDRESS=$(jq -r '.syslog_address // ""' ${OPTIONS})
 SYSLOG_PORT=$(jq -r '.syslog_port' ${OPTIONS})
@@ -85,6 +87,7 @@ fetch_zone_names = ${FETCH_ZONE_NAMES}
 zones_normal_as_off = ${ZONES_NORMAL_AS_OFF}
 nscenarios = ${NSCENARIOS}
 fetch_scenario_names = ${FETCH_SCENARIO_NAMES}
+config_entities = ${CONFIG_ENTITIES}
 
 [web]
 port = 8099

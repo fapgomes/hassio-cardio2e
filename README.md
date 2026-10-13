@@ -44,6 +44,7 @@ After installing, go to the add-on **Configuration** tab. All options are availa
 | `zones_normal_as_off` | `[]` | Zone IDs where "Normal" state means OFF |
 | `nscenarios` | `0` | Total number of scenarios to initialize (0 = disabled) |
 | `fetch_scenario_names` | `true` | Fetch scenario names from the controller on startup |
+| `config_entities` | `true` | Config entities for the outlet and lamp settings (see below) |
 
 ## Configuration memory panel
 
@@ -65,6 +66,28 @@ Backups are stored in the add-on configuration folder,
 backups). While a backup or compare is running, lights and switches still
 work, but a command takes about 12 seconds: the controller stops its timers
 (such as a relay's auto off) while it serves memory requests.
+
+## Outlet and lamp settings
+
+With `config_entities` on (the default), every switch (outlet) and light gets
+config entities for the settings stored in the controller, under the
+**Cardio2e Switches** and **Cardio2e Lights** devices:
+
+- **Switches:** Name, Auto off, Device state, Reaction duration, Off on
+  doorbell, Off on phone, Sunrise/sunset reaction, Pulse zone, Active
+  from/to (time, sunset or sunrise).
+- **Lights:** Name, Deterrence delay, Intensity, Duration, Blink on
+  doorbell/phone/intrusion, Soft on/off, Sunrise/sunset reaction, Pulse zone,
+  Active from/to.
+
+Only **Auto off** (switches) and **Duration** (lights) are enabled by default;
+enable the others in Home Assistant as needed. A change is written to the
+controller and read back before the entity shows it. Renaming a switch or a
+light (8 characters, ASCII) also renames it in Home Assistant. The settings
+are read once after the add-on starts (in the background) and after a
+restore; press **Reload configuration** after changing them on the touch
+panel or in PCCardio. While the settings are read or written, commands take
+up to about 12 seconds (see above).
 
 ## Supported entities
 
